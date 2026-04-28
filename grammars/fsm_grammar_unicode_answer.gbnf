@@ -1,0 +1,13 @@
+# Terse structured plan with Unicode-capable final answer.
+# This keeps the same compact GOAL/APPROACH/EDGE thinking format as
+# fsm_grammar.gbnf, but broadens the answer region beyond ASCII so exact
+# accented text and emoji can be emitted.
+#
+# Caveat: the answer region is permissive, so models may still emit extra tags
+# such as </think> in the final answer. This variant intentionally favors
+# stopping behavior and code compatibility over tag-level filtering.
+
+root ::= think answer
+think ::= "<think>\n" "GOAL: " line "APPROACH: " line "EDGE: " line "</think>\n\n"
+line ::= [^\n]+ "\n"
+answer ::= [^\x00]+
